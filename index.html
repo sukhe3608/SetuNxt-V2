@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SetuNxt – Next-Gen Business Communication</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+  <!-- Landing page styles -->
+  <link rel="stylesheet" href="assets/css/landing.css" />
+  <link rel="stylesheet" href="assets/css/contact.css" />
+  <!-- Animation system -->
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/landing-enhanced.css" />
+  <link rel="stylesheet" href="assets/css/animations-v2.css" />
+  <!-- Isolated realistic phone design: no changes to existing layout logic -->
+  <link rel="stylesheet" href="assets/css/phone-realistic.css" />
+
+</head>
+
+<body class="sn-landing">
+
+  <!-- ════════════════════════════════════════════
+     SVG ICON SPRITE
+════════════════════════════════════════════ -->
+  <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" stroke="currentColor" fill="white" />
+      <polyline points="22,7 12,14 2,7" stroke="currentColor" fill="none" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+      <line x1="7" y1="12" x2="5" y2="12" stroke="currentColor" stroke-width="1.2" />
+      <line x1="19" y1="12" x2="17" y2="12" stroke="currentColor" stroke-width="1.2" />
+    </symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="5" y="2" width="14" height="20" rx="3" ry="3" stroke="currentColor" fill="white" />
+      <circle cx="12" cy="18" r="1.5" fill="currentColor" stroke="none" />
+      <line x1="9" y1="5" x2="15" y2="5" stroke="currentColor" stroke-width="1.2" />
+      <path d="M7 8 L7 15" stroke="currentColor" stroke-width="1.2" />
+      <path d="M17 8 L17 15" stroke="currentColor" stroke-width="1.2" />
+      <circle cx="12" cy="16" r="0.8" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M16 31C23.732 31 30 24.732 30 17C30 9.26801 23.732 3 16 3C8.26801 3 2 9.26801 2 17C2 19.5109 2.661 21.8674 3.81847 23.905L2 31L9.31486 29.3038C11.3014 30.3854 13.5789 31 16 31ZM16 28.8462C22.5425 28.8462 27.8462 23.5425 27.8462 17C27.8462 10.4576 22.5425 5.15385 16 5.15385C9.45755 5.15385 4.15385 10.4576 4.15385 17C4.15385 19.5261 4.9445 21.8675 6.29184 23.7902L5.23077 27.7692L9.27993 26.7569C11.1894 28.0746 13.5046 28.8462 16 28.8462Z"
+        fill="#BFC8D0" />
+      <path
+        d="M28 16C28 22.6274 22.6274 28 16 28C13.4722 28 11.1269 27.2184 9.19266 25.8837L5.09091 26.9091L6.16576 22.8784C4.80092 20.9307 4 18.5589 4 16C4 9.37258 9.37258 4 16 4C22.6274 4 28 9.37258 28 16Z"
+        fill="url(#wa_grad)" />
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 18.5109 2.661 20.8674 3.81847 22.905L2 30L9.31486 28.3038C11.3014 29.3854 13.5789 30 16 30ZM16 27.8462C22.5425 27.8462 27.8462 22.5425 27.8462 16C27.8462 9.45755 22.5425 4.15385 16 4.15385C9.45755 4.15385 4.15385 9.45755 4.15385 16C4.15385 18.5261 4.9445 20.8675 6.29184 22.7902L5.23077 26.7692L9.27993 25.7569C11.1894 27.0746 13.5046 27.8462 16 27.8462Z"
+        fill="white" />
+      <path
+        d="M12.5 9.5C12.167 8.831 11.657 8.89 11.141 8.89C10.219 8.89 8.781 9.995 8.781 12.05C8.781 13.734 9.523 15.578 12.024 18.336C14.438 20.998 17.609 22.375 20.242 22.328C22.875 22.281 23.417 20.015 23.417 19.25C23.417 18.911 23.206 18.742 23.061 18.696C22.164 18.265 20.509 17.463 20.133 17.312C19.756 17.162 19.56 17.366 19.438 17.477C19.096 17.802 18.419 18.761 18.188 18.977C17.956 19.192 17.61 19.083 17.467 19.002C16.937 18.789 15.503 18.151 14.36 17.043C12.945 15.672 12.862 15.2 12.596 14.78C12.383 14.444 12.539 14.238 12.617 14.148C12.922 13.797 13.343 13.254 13.531 12.984C13.72 12.715 13.57 12.305 13.48 12.05C13.094 10.953 12.766 10.035 12.5 9.5Z"
+        fill="white" />
+      <defs>
+        <linearGradient id="wa_grad" x1="26.5" y1="7" x2="4" y2="28" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#5BD066" />
+          <stop offset="1" stop-color="#27B43E" />
+        </linearGradient>
+      </defs>
+    </symbol>
+    <symbol id="icon-message-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path
+        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+        stroke="currentColor" fill="white" />
+      <circle cx="9" cy="12" r="1" fill="currentColor" stroke="none" />
+      <circle cx="15" cy="12" r="1" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="icon-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="4" y="2" width="16" height="20" rx="2" ry="2" stroke="currentColor" fill="white" />
+      <line x1="8" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.2" />
+      <line x1="8" y1="14" x2="16" y2="14" stroke="currentColor" stroke-width="1.2" />
+      <line x1="8" y1="18" x2="12" y2="18" stroke="currentColor" stroke-width="1.2" />
+      <rect x="10" y="5" width="4" height="3" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="icon-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" stroke="currentColor" fill="white" />
+      <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="1.2" />
+      <path d="M16 10a4 4 0 0 1-8 0" stroke="currentColor" fill="none" />
+      <circle cx="16" cy="14" r="1" fill="currentColor" stroke="none" />
+      <circle cx="8" cy="14" r="1" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#ffd966" stroke="currentColor" />
+    </symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" fill="white" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" fill="none" />
+      <circle cx="12" cy="16" r="1.2" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polyline points="23 6 13.5 15.5 8 10.5 1 18" stroke="currentColor" fill="none" />
+      <polyline points="17 6 23 6 23 12" stroke="currentColor" fill="none" />
+      <circle cx="20" cy="9" r="0.8" fill="currentColor" />
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" fill="#e6f0ff" />
+      <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" opacity="0.5" />
+    </symbol>
+    <symbol id="icon-refresh-cw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polyline points="23 4 23 10 17 10" stroke="currentColor" fill="none" />
+      <polyline points="1 20 1 14 7 14" stroke="currentColor" fill="none" />
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="currentColor"
+        fill="none" />
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="9" cy="7" r="4" stroke="currentColor" fill="white" />
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" fill="none" />
+      <circle cx="17" cy="7" r="4" stroke="currentColor" fill="white" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" fill="none" />
+    </symbol>
+    <symbol id="icon-shopping-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="9" cy="21" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="20" cy="21" r="1.2" fill="currentColor" stroke="none" />
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" stroke="currentColor" fill="none" />
+    </symbol>
+    <symbol id="icon-land-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="2" y="12" width="20" height="10" rx="2" ry="2" stroke="currentColor" fill="white" />
+      <line x1="8" y1="22" x2="16" y2="22" stroke="currentColor" />
+      <polygon points="12 2 2 7 22 7 12 2" fill="#f2f2f2" stroke="currentColor" />
+      <circle cx="12" cy="16" r="1" fill="currentColor" />
+    </symbol>
+    <symbol id="icon-hospital" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" fill="white" />
+      <line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" />
+      <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" />
+    </symbol>
+    <symbol id="icon-airplane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path
+        d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8l-8.2-1.8L2 9l6 3 3 6 3-2 3.5 3.5 3.5-3.5z"
+        stroke="currentColor" fill="#f0f0f0" />
+    </symbol>
+    <symbol id="icon-graduation-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="currentColor" fill="#f8f8f8" />
+      <path d="M6 12v5c3 3 6 3 9 0v-5" stroke="currentColor" fill="none" />
+    </symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" />
+      <circle cx="12" cy="12" r="6" stroke="currentColor" fill="none" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="icon-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <line x1="12" y1="20" x2="12" y2="10" stroke="currentColor" />
+      <line x1="18" y1="20" x2="18" y2="4" stroke="currentColor" />
+      <line x1="6" y1="20" x2="6" y2="16" stroke="currentColor" />
+      <circle cx="12" cy="8" r="0.8" fill="currentColor" />
+      <circle cx="18" cy="6" r="0.8" fill="currentColor" />
+      <circle cx="6" cy="14" r="0.8" fill="currentColor" />
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+      <polyline points="20 6 9 17 4 12" />
+    </symbol>
+  </svg>
+
+  <!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+  <nav>
+    <div class="nav-logo">
+      <img src="assets/images/Logo.png" alt="SetuNxt logo">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#why">Why SetuNxt</a></li>
+      <li><a href="#usecases">Use Cases</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="login.html" class="btn-outline">Log In</a>
+      <a href="#cta" class="btn-solid">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#services">Services</a>
+    <a href="#how">How It Works</a>
+    <a href="#why">Why SetuNxt</a>
+    <a href="#usecases">Use Cases</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="blog.html">Blog</a>
+    <div class="mobile-cta">
+      <a href="login.html" class="btn-outline">Log In</a>
+      <a href="#cta" class="btn-solid">Get Started</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+  <section class="hero">
+    <svg class="hero-bg-shapes" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="300" fill="#1a6fd4" />
+      <circle cx="1300" cy="600" r="250" fill="#f07c1a" />
+      <ellipse cx="800" cy="100" rx="200" ry="120" fill="#1a6fd4" />
+    </svg>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge sn-hero-enter-up">
+          <div class="dot"></div>
+          Next-Gen Business Communication
+        </div>
+        <h1 class="sn-hero-enter-up-delayed">Bridge Every<br /><span class="accent">Customer</span> With<br /><span
+            class="accent-orange">Smart</span>
+          Channels</h1>
+        <p class="hero-sub sn-hero-enter-up" style="animation-delay:0.4s">SetuNxt empowers businesses to engage
+          customers through <strong>RCS, IVRS &amp;
+            WhatsApp</strong> — delivering rich, interactive, and personalized communications at scale.</p>
+        <div class="hero-actions sn-hero-enter-up" style="animation-delay:0.55s">
+          <a href="login.html" class="btn-hero-primary sn-btn-shine">Log in →</a>
+          <a href="#services" class="btn-hero-secondary sn-btn-shine">Explore Services</a>
+          <a href="contact.html" class="btn-hero-primary sn-btn-shine">Demo →</a>
+        </div>
+      </div>
+      <div class="hero-visual sn-hero-enter-right">
+        <div class="hero-chip chip-1">
+          <div class="chip-icon"><svg class="icon" width="24" height="24">
+              <use href="#icon-phone" />
+            </svg></div>
+          95% Call Connect Rate
+        </div>
+        <!-- REFINED PIXEL-STYLE RCS PHONE: presentation only. Carousel JS selectors are unchanged. -->
+        <div class="phone-realistic-frame" aria-label="Interactive illustration of RCS business messages">
+          <div class="prf-btn prf-vol-up" aria-hidden="true"></div>
+          <div class="prf-btn prf-vol-down" aria-hidden="true"></div>
+          <div class="prf-btn prf-power" aria-hidden="true"></div>
+          <div class="prf-screen">
+            <div class="prf-status-bar" aria-hidden="true">
+              <span class="prf-time">9:41</span>
+              <div class="prf-status-icons">
+                <svg width="17" height="13" viewBox="0 0 17 13" fill="none">
+                  <path d="M1 11.5h2.8V8.3H1zM5.1 11.5h2.8V5.8H5.1zM9.2 11.5H12V3.2H9.2zM13.3 11.5H16V.8h-2.7z"
+                    fill="currentColor" />
+                </svg>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
+                  <path d="M1 4.4c3.8-3.3 10.2-3.3 14 0M3.8 7.5c2.4-2.2 6-2.2 8.4 0" stroke="currentColor"
+                    stroke-width="1.55" stroke-linecap="round" />
+                  <circle cx="8" cy="10.3" r="1.55" fill="currentColor" />
+                </svg>
+                <svg width="24" height="13" viewBox="0 0 24 13" fill="none">
+                  <rect x=".8" y="1.1" width="19.5" height="10.7" rx="3.2" stroke="currentColor" stroke-width="1.2" />
+                  <rect x="2.7" y="3" width="15" height="6.9" rx="1.55" fill="currentColor" />
+                  <path d="M22 4.5v3.7c1.4-.5 1.4-3.2 0-3.7" fill="currentColor" />
+                </svg>
+              </div>
+            </div>
+            <div class="prf-island" aria-hidden="true">
+              <div class="prf-island-cam"></div>
+            </div>
+            <div class="hero-phone-mockup" data-chat-index="0">
+              <div class="phone-header">
+                <span class="prf-back" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg></span>
+                <span class="phone-avatar" id="prf-chat-avatar" aria-hidden="true">S</span>
+                <div class="prf-contact-info">
+                  <h4><span id="prf-chat-name">ShopKart</span><span class="prf-account-check"
+                      aria-label="Example verified business">✓</span></h4>
+                  <p id="prf-chat-subtitle">Business chat · RCS</p>
+                </div>
+                <span class="prf-header-call" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17"
+                    fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="m22 16.92-3.09-1.34a2 2 0 0 0-2.23.45l-1.08 1.08a16.5 16.5 0 0 1-8.71-8.71l1.08-1.08a2 2 0 0 0 .45-2.23L7.08 2a2 2 0 0 0-2.1-1.18L3 1.1A2 2 0 0 0 1.2 3.2 20.8 20.8 0 0 0 20.8 22.8 2 2 0 0 0 22.9 21l.28-1.98A2 2 0 0 0 22 16.92Z" />
+                  </svg></span>
+                <span class="prf-header-more" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <circle cx="12" cy="5" r="1.6" />
+                    <circle cx="12" cy="12" r="1.6" />
+                    <circle cx="12" cy="19" r="1.6" />
+                  </svg></span>
+              </div>
+              <div class="phone-body">
+                <div class="prf-thread-day">Today <span>·</span> 9:41 AM</div>
+                <div class="ad-carousel" id="adCarousel" aria-label="Rich messaging and original sponsored ads">
+                  <div aria-label="ShopKart promotion" class="ad-slide active" data-brand="ShopKart"
+                    data-chat-color="shop" data-chat-type="Business chat · RCS" data-initial="S">
+                    <div class="prf-inbound">Hi! We have a special offer for you.</div>
+                    <article class="ad-card">
+                      <div class="ad-media ad-media-sale">
+                        <!-- <span class="ad-badge">Ad</span> -->
+                        <button aria-label="Dismiss" class="ad-dismiss" type="button">✕</button>
+                        <img alt="White and coral trainers in a promotional product display" class="prf-sale-photo"
+                          src="assets/images/rcs-sneaker.svg" />
+                        <span class="prf-sale-caption">MEGA SALE · LIMITED TIME</span>
+                        <span class="ad-sale-tag">-40%</span>
+                      </div>
+                      <div class="ad-body">
+                        <div class="ad-brand">
+                          <span class="ad-logo" style="background:linear-gradient(135deg,#ff7a18,#f0305f);">S</span>
+                          <div class="ad-brand-meta">
+                            <strong>ShopKart <svg class="icon" height="11" viewbox="0 0 24 24" width="11">
+                                <use href="#icon-check"></use>
+                              </svg></strong>
+                            <span>Sponsored · ShopKart India</span>
+                          </div>
+                        </div>
+                        <h5 class="ad-headline">Exclusive Sale — 40% Off!</h5>
+                        <p class="ad-desc">Your cart is waiting. Grab these picks before they're gone.</p>
+                        <div class="ad-actions">
+                          <button class="chat-btn" type="button">Shop Now</button>
+                          <button class="chat-btn orange" type="button">View Offer</button>
+                        </div>
+                      </div>
+                    </article>
+                    <div class="prf-message-time">9:41 AM · RCS</div>
+                    <div class="chat-bubble ad-reply">
+                      <p> Order placed! Track it here.</p>
+                      <span aria-label="Message delivered" class="prf-checks">✓✓</span>
+                    </div>
+                  </div>
+                  <div aria-label="StateBank transaction alert" class="ad-slide" data-brand="StateBank"
+                    data-chat-color="bank" data-chat-type="Verified business · RCS" data-initial="₹">
+                    <div class="prf-inbound">Your account activity alert is ready.</div>
+                    <article class="ad-card">
+                      <div class="ad-media ad-media-bank">
+                        <!-- <span class="ad-badge">Ad</span> -->
+                        <button aria-label="Dismiss" class="ad-dismiss" type="button">✕</button>
+                        <div class="prf-bank-note">
+                          <div class="prf-bank-note-top"><span class="prf-bank-small">TRANSACTION ALERT</span><span
+                              class="prf-bank-lock">● SECURE</span></div>
+                          <div class="prf-bank-amount">− ₹5,000.00</div>
+                          <div class="prf-bank-detail">Debit card ending in <b>4829</b></div>
+                          <div class="prf-bank-note-bottom"><span>Today at 9:41 AM</span><span>Completed ✓</span></div>
+                        </div>
+                      </div>
+                      <div class="ad-body">
+                        <div class="ad-brand">
+                          <span class="ad-logo" style="background:linear-gradient(135deg,#2f6fed,#1552c7);"><svg
+                              class="icon" height="14" width="14">
+                              <use href="#icon-land-bank"></use>
+                            </svg></span>
+                          <div class="ad-brand-meta">
+                            <strong>StateBank <svg class="icon" height="11" viewbox="0 0 24 24" width="11">
+                                <use href="#icon-check"></use>
+                              </svg></strong>
+                            <span>Transactional Alert</span>
+                          </div>
+                        </div>
+                        <h5 class="ad-headline">Transaction Alert — ₹5,000 debited</h5>
+                        <p class="ad-desc">OTP: <strong>482916</strong> · Valid for 5 mins. Never share your OTP.</p>
+                        <div class="ad-actions">
+                          <button class="chat-btn" type="button">View Details</button>
+                          <button class="chat-btn orange" type="button">Report Fraud</button>
+                        </div>
+                      </div>
+                    </article>
+                    <div class="prf-message-time">9:41 AM · RCS</div>
+                    <div class="chat-bubble ad-reply">
+                      <p> Verified &amp; secure message.</p>
+                      <span aria-label="Message delivered" class="prf-checks">✓✓</span>
+                    </div>
+                  </div>
+                  <div aria-label="City Clinic appointment reminder" class="ad-slide" data-brand="City Clinic"
+                    data-chat-color="health" data-chat-type="Appointments · RCS" data-initial="+">
+                    <div class="prf-inbound">A reminder from your clinic.</div>
+                    <article class="ad-card">
+                      <div class="ad-media ad-media-health">
+                        <!-- <span class="ad-badge">Ad</span> -->
+                        <button aria-label="Dismiss" class="ad-dismiss" type="button">✕</button>
+                        <div class="prf-appointment-panel">
+                          <div class="prf-appointment-date"><span>OCT</span><strong>30</strong><small>FRI</small></div>
+                          <div class="prf-appointment-details"><span>UPCOMING APPOINTMENT</span><strong>Dr.
+                              Sharma</strong><small>General consultation</small><em>10:30 AM – 11:00 AM</em></div>
+                        </div>
+                      </div>
+                      <div class="ad-body">
+                        <div class="ad-brand">
+                          <span class="ad-logo" style="background:linear-gradient(135deg,#16c79a,#0aa47c);">+</span>
+                          <div class="ad-brand-meta">
+                            <strong>City Clinic <svg class="icon" height="11" viewbox="0 0 24 24" width="11">
+                                <use href="#icon-check"></use>
+                              </svg></strong>
+                            <span>Healthcare · Dr. Sharma</span>
+                          </div>
+                        </div>
+                        <h5 class="ad-headline">Appointment Tomorrow!</h5>
+                        <p class="ad-desc">Dr. Sharma, City Clinic at 10:30 AM. Please confirm your slot.</p>
+                        <div class="ad-actions">
+                          <button class="chat-btn" type="button"><span class="inline-icon"><svg class="icon" height="13"
+                                width="13">
+                                <use href="#icon-check"></use>
+                              </svg></span>Confirm</button>
+                          <button class="chat-btn orange" type="button">Reschedule</button>
+                        </div>
+                      </div>
+                    </article>
+                    <div class="prf-message-time">9:41 AM · RCS</div>
+                    <div class="chat-bubble ad-reply">
+                      <p> Appointment confirmed!</p>
+                      <span aria-label="Message delivered" class="prf-checks">✓✓</span>
+                    </div>
+                  </div>
+                  <div aria-label="SkyWings Air flight alert" class="ad-slide" data-brand="SkyWings Air"
+                    data-chat-color="travel" data-chat-type="Flight updates · RCS" data-initial="✈">
+                    <div class="prf-inbound">Your flight status has been updated.</div>
+                    <article class="ad-card">
+                      <div class="ad-media ad-media-travel">
+                        <!-- <span class="ad-badge">Ad</span> -->
+                        <button aria-label="Dismiss" class="ad-dismiss" type="button">✕</button>
+                        <div class="prf-flight-ticket">
+                          <div class="prf-flight-ticket-top"><span>SKYWINGS <b>✈</b></span><span class="prf-on-time">●
+                              ON TIME</span></div>
+                          <div class="prf-flight-route">
+                            <div><strong>DEL</strong><small>Delhi</small></div>
+                            <div class="prf-flight-connector"><span>AI 204</span><i>✈</i>
+                              <div></div>
+                            </div>
+                            <div><strong>BOM</strong><small>Mumbai</small></div>
+                          </div>
+                          <div class="prf-flight-bottom">
+                            <span><small>BOARDING</small>13:55</span><span><small>DEPARTURE</small>14:35</span><span><small>GATE</small>12B</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ad-body">
+                        <div class="ad-brand">
+                          <span class="ad-logo" style="background:linear-gradient(135deg,#f7971e,#ff5e62);"><svg
+                              class="icon" height="14" width="14">
+                              <use href="#icon-airplane"></use>
+                            </svg></span>
+                          <div class="ad-brand-meta">
+                            <strong>SkyWings Air <svg class="icon" height="11" viewbox="0 0 24 24" width="11">
+                                <use href="#icon-check"></use>
+                              </svg></strong>
+                            <span>Travel · Flight Update</span>
+                          </div>
+                        </div>
+                        <h5 class="ad-headline">Flight AI-204 On Time</h5>
+                        <p class="ad-desc">Boarding Gate 12B · Departs 14:35. Check-in closes in 45 mins.</p>
+                        <div class="ad-actions">
+                          <button class="chat-btn orange" type="button">Boarding Pass</button>
+                          <button class="chat-btn" type="button">Track Flight</button>
+                        </div>
+                      </div>
+                    </article>
+                    <div class="prf-message-time">9:41 AM · RCS</div>
+                    <div class="chat-bubble ad-reply">
+                      <p> Live flight updates enabled.</p>
+                      <span aria-label="Message delivered" class="prf-checks">✓✓</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="ad-dots" id="adDots" aria-label="Choose message example">
+                  <button type="button" class="ad-dot active" data-index="0"
+                    aria-label="Show shopping message"></button>
+                  <button type="button" class="ad-dot" data-index="1" aria-label="Show banking message"></button>
+                  <button type="button" class="ad-dot" data-index="2" aria-label="Show healthcare message"></button>
+                  <button type="button" class="ad-dot" data-index="3" aria-label="Show travel message"></button>
+                </div>
+              </div>
+              <div class="prf-action-toast" id="prf-action-toast" role="status" aria-live="polite" aria-atomic="true">
+              </div>
+              <div class="prf-composer" aria-hidden="true">
+                <span class="prf-composer-add"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+                    stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg></span>
+                <span class="prf-composer-field">RCS message <svg viewBox="0 0 24 24" width="17" height="17" fill="none"
+                    stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M8 14c2 3 6 3 8 0M9 10h.01M15 10h.01" stroke-linecap="round" />
+                  </svg></span>
+                <span class="prf-composer-mic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                    <rect x="9" y="2.5" width="6" height="13" rx="3" />
+                    <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5m-4 0h8" />
+                  </svg></span>
+              </div>
+            </div>
+            <div class="prf-home-bar" aria-hidden="true"></div>
+          </div>
+        </div><!-- end phone-realistic-frame -->
+        <div class="hero-chip chip-2">
+          <div class="chip-icon"><svg class="icon" width="24" height="24">
+              <use href="#icon-zap" />
+            </svg></div>
+          3x Higher Engagement
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+     STATS
+════════════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item"><span class="stat-num sn-counter" data-target="50" data-suffix="M+">50M</span>
+        <div class="stat-label">Messages Delivered</div>
+      </div>
+      <div class="stat-item"><span class="stat-num sn-counter" data-target="100" data-suffix="+">100+</span>
+        <div class="stat-label">Businesses Served</div>
+      </div>
+      <div class="stat-item"><span class="stat-num sn-counter" data-target="98.5" data-suffix="%">98.5%</span>
+        <div class="stat-label">Uptime Guarantee</div>
+      </div>
+      <div class="stat-item"><span class="stat-num sn-counter" data-target="3" data-suffix="x">3x</span>
+        <div class="stat-label">Better Engagement vs SMS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+     SERVICES  (each card opens its modal)
+════════════════════════════════════════════ -->
+  <section class="services" id="services">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="center sn-reveal">
+        <span class="section-tag">Our Channels</span>
+        <h2 class="section-title">Powerful Communication <span>Channels</span></h2>
+        <p class="section-sub">Connect with your customers on the channels they love — delivering rich, branded, and
+          interactive experiences.</p>
+      </div>
+      <div class="services-grid">
+
+        <!-- RCS -->
+        <div class="service-card sn-clickable-card sn-reveal sn-d-1" id="RCS" data-service="RCS">
+          <div class="service-icon icon-blue"><svg class="icon" width="62" height="62">
+              <use href="#icon-phone" />
+            </svg></div>
+          <h3>RCS Business Messaging</h3>
+          <p>The next generation of SMS — send rich media, interactive carousels, buttons, and branded messages directly
+            in the native messaging app. No app downloads required.</p>
+          <ul class="service-features">
+            <li>Rich Media (Images, Videos, PDFs)</li>
+            <li>Interactive Quick-Reply Buttons</li>
+            <li>Verified Brand Profile &amp; Checkmark</li>
+            <li>Read Receipts &amp; Delivery Reports</li>
+            <li>Two-Way Conversational Messaging</li>
+          </ul>
+          <span class="service-link">Explore RCS →</span>
+        </div>
+
+        <!-- IVRS -->
+        <div class="service-card orange-card sn-clickable-card sn-reveal sn-d-3" id="IVRS" data-service="IVRS">
+          <div class="service-icon icon-orange"><svg class="icon" width="62" height="62">
+              <use href="#icon-phone" />
+            </svg></div>
+          <h3>IVRS Solutions</h3>
+          <p>Automated interactive voice response systems at scale — from OTP verification and appointment reminders to
+            customer surveys and intelligent call routing.</p>
+          <ul class="service-features">
+            <li>Automated Voice OTP &amp; Alerts</li>
+            <li>Multi-Level IVR Menu Builder</li>
+            <li>Real-Time Call Analytics &amp; Reports</li>
+            <li>Smart Call Routing &amp; Failover</li>
+            <li>Text-to-Speech &amp; Custom Prompts</li>
+          </ul>
+          <span class="service-link">Explore IVRS →</span>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="service-card mixed-card sn-clickable-card sn-reveal sn-d-5" id="WhatsApp" data-service="WhatsApp">
+          <div class="service-icon icon-green"><svg class="icon" width="62" height="62">
+              <use href="#icon-whatsapp" />
+            </svg></div>
+          <h3>WhatsApp Business API</h3>
+          <p>Engage 500M+ WhatsApp users in India with automated conversations, interactive templates, and seamless
+            two-way customer support flows — all via official API.</p>
+          <ul class="service-features">
+            <li>Broadcast &amp; Template Messages</li>
+            <li>Interactive List &amp; Button Messages</li>
+            <li>Chatbot &amp; Automation Flows</li>
+            <li>WhatsApp Commerce &amp; Catalog</li>
+            <li>Shared Team Inbox Support</li>
+          </ul>
+          <span class="service-link">Explore WhatsApp →</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════════ -->
+  <section class="how-it-works" id="how">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="center sn-reveal">
+        <span class="section-tag">The Process</span>
+        <h2 class="section-title">Get Started in <span>4 Simple</span> Steps</h2>
+        <p class="section-sub">From onboarding to your first campaign — SetuNxt makes it fast, simple, and powerful.</p>
+      </div>
+      <div class="steps-container">
+        <div class="step sn-reveal sn-d-1">
+          <div class="step-num">01</div>
+          <h4>Sign Up &amp; Onboard</h4>
+          <p>Create your account in minutes and complete a quick KYC verification process.</p>
+        </div>
+        <div class="step sn-reveal sn-d-2">
+          <div class="step-num">02</div>
+          <h4>Configure Channels</h4>
+          <p>Activate RCS, IVRS, and WhatsApp channels. Set up your verified brand profile.</p>
+        </div>
+        <div class="step sn-reveal sn-d-3">
+          <div class="step-num">03</div>
+          <h4>Build Campaigns</h4>
+          <p>Use our drag-and-drop builder to design rich messages, templates &amp; automations.</p>
+        </div>
+        <div class="step sn-reveal sn-d-4">
+          <div class="step-num">04</div>
+          <h4>Analyse &amp; Optimise</h4>
+          <p>Track delivery, open rates, and conversions. Continuously improve your ROI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+     WHY SETUNXT
+════════════════════════════════════════════ -->
+  <section class="why" id="why">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="sn-reveal" style="display: grid;justify-content: center;align-items: center;">
+        <span class="section-tag">Why SetuNxt</span>
+        <h2 class="section-title">Built for <span>Performance</span> &amp;<br /><span class="o">Results</span> That
+          Matter</h2>
+        <p class="section-sub">SetuNxt isn't just a messaging platform — it's a growth engine for businesses that need
+          reliable, scalable, and intelligent communication.</p>
+      </div>
+      <div class="why-container sn-reveal">
+        <div class="why-visual">
+          <h4><span class="inline-icon"><svg class="icon" width="20" height="20">
+                <use href="#icon-bar-chart" />
+              </svg></span> Engagement Benchmarks</h4>
+          <div class="metric-bar">
+            <div class="metric-label">RCS Message Open Rate <span>85%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:85%"></div>
+            </div>
+          </div>
+          <div class="metric-bar">
+            <div class="metric-label">WhatsApp Read Rate <span>78%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill orange" style="width:78%"></div>
+            </div>
+          </div>
+          <div class="metric-bar">
+            <div class="metric-label">IVRS Call Connect Rate <span>95%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill mixed" style="width:95%"></div>
+            </div>
+          </div>
+          <div class="metric-bar">
+            <div class="metric-label">Campaign Conversion Uplift <span>3x</span></div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:72%"></div>
+            </div>
+          </div>
+          <div class="metric-bar">
+            <div class="metric-label">Platform Uptime SLA <span>99.9%</span></div>
+            <div class="bar-track">
+              <div class="bar-fill orange" style="width:99%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-point-icon icon-blue"><svg class="icon" width="44" height="44">
+                <use href="#icon-lock" />
+              </svg></div>
+            <div>
+              <h5>Enterprise Security</h5>
+              <p>End-to-end encryption and DPDP-compliant infrastructure protecting your data.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon" style="background:rgba(240,124,26,0.1)"><svg class="icon" width="44"
+                height="44">
+                <use href="#icon-zap" />
+              </svg></div>
+            <div>
+              <h5>Instant API Integration</h5>
+              <p>Plug into your existing CRM, ERP, or website with developer-friendly REST APIs.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon" style="background:rgba(26,111,212,0.08)"><svg class="icon" width="44"
+                height="44">
+                <use href="#icon-trending-up" />
+              </svg></div>
+            <div>
+              <h5>Real-Time Analytics</h5>
+              <p>Live dashboards with delivery, read, click and conversion tracking per campaign.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon" style="background:rgba(240,124,26,0.1)"><svg class="icon" width="44"
+                height="44">
+                <use href="#icon-shield" />
+              </svg></div>
+            <div>
+              <h5>Verified Brand Identity</h5>
+              <p>Send messages as a verified, trusted brand — build customer confidence instantly.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon" style="background:rgba(26,111,212,0.08)"><svg class="icon" width="44"
+                height="44">
+                <use href="#icon-refresh-cw" />
+              </svg></div>
+            <div>
+              <h5>Omnichannel Fallback</h5>
+              <p>Auto-fallback from RCS to SMS or WhatsApp — ensuring zero missed deliveries.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon" style="background:rgba(240,124,26,0.1)"><svg class="icon" width="44"
+                height="44">
+                <use href="#icon-users" />
+              </svg></div>
+            <div>
+              <h5>Dedicated Support</h5>
+              <p>24×7 expert support with a dedicated account manager for every enterprise plan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+     USE CASES
+════════════════════════════════════════════ -->
+  <section class="usecases" id="usecases">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="center sn-reveal">
+        <span class="section-tag">Industry Solutions</span>
+        <h2 class="section-title">Solutions for <span>Every</span> Industry</h2>
+        <p class="section-sub">SetuNxt powers communication across diverse sectors — from retail to banking, healthcare
+          to logistics.</p>
+      </div>
+      <div class="usecases-tabs">
+        <div class="tab-nav">
+          <button class="tab-btn active">All Industries</button>
+          <button class="tab-btn">E-Commerce</button>
+          <button class="tab-btn">Banking &amp; Finance</button>
+          <button class="tab-btn">Healthcare</button>
+          <button class="tab-btn">Travel</button>
+          <button class="tab-btn">Education</button>
+        </div>
+        <div class="usecase-grid">
+          <div class="usecase-card sn-reveal sn-d-1">
+            <div class="uc-icon"><svg class="icon" width="1.8rem" height="1.8rem">
+                <use href="#icon-shopping-cart" />
+              </svg></div>
+            <h4>Order &amp; Delivery Updates</h4>
+            <p>Send rich order confirmations, real-time delivery tracking with map previews, and review request
+              messages.</p>
+          </div>
+          <div class="usecase-card">
+            <div class="uc-icon"><svg class="icon" width="1.8rem" height="1.8rem">
+                <use href="#icon-land-bank" />
+              </svg></div>
+            <h4>Banking Alerts &amp; OTPs</h4>
+            <p>Secure transactional alerts, fraud notifications, and account updates with verified sender identity.</p>
+          </div>
+          <div class="usecase-card">
+            <div class="uc-icon"><svg class="icon" width="1.8rem" height="1.8rem">
+                <use href="#icon-hospital" />
+              </svg></div>
+            <h4>Appointment Reminders</h4>
+            <p>Interactive appointment bookings with quick reschedule/confirm buttons for clinics and hospitals.</p>
+          </div>
+          <div class="usecase-card">
+            <div class="uc-icon"><svg class="icon" width="1.8rem" height="1.8rem">
+                <use href="#icon-airplane" />
+              </svg></div>
+            <h4>Travel Itineraries</h4>
+            <p>Boarding passes, hotel check-in info, and real-time flight updates via rich RCS messaging cards.</p>
+          </div>
+          <div class="usecase-card">
+            <div class="uc-icon"><svg class="icon" width="1.8rem" height="1.8rem">
+                <use href="#icon-graduation-cap" />
+              </svg></div>
+            <h4>Student Notifications</h4>
+            <p>Course updates, fee reminders, exam schedules and personalised learning nudges over WhatsApp.</p>
+          </div>
+          <div class="usecase-card">
+            <div class="uc-icon"><svg class="icon" width="1.8rem" height="1.8rem">
+                <use href="#icon-target" />
+              </svg></div>
+            <h4>Promotional Campaigns</h4>
+            <p>Image-rich product catalogs, discount carousels, and one-tap CTA buttons for maximum conversions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+     CTA
+════════════════════════════════════════════ -->
+  <section class="cta-section" id="cta">
+    <div class="cta-inner sn-reveal">
+      <h2>Ready to <span>Bridge</span> the Gap<br />with Your Customers?</h2>
+      <p>Join thousands of businesses using SetuNxt for smarter, faster, and richer customer communication. Start your
+        free trial today — no credit card required.</p>
+      <div class="cta-form">
+        <input type="email" id="cta-email-input" class="cta-input" placeholder="Enter your business email" />
+        <button class="cta-submit" id="cta-get-started">Get Started →</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-brand" style="font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:800;">
+          <img src="assets/images/Logo.png" alt="SetuNxt logo" style="height:8rem; width: auto;">
+        </div>
+        <p>SetuNxt bridges businesses with their customers through next-generation communication — RCS, Email, and
+          WhatsApp — all from a single powerful platform.</p>
+        <div style="margin-top:16px;">
+          <div class="channels-pill">Channels: <span>RCS</span> · <span>IVRS</span> · <span>WhatsApp</span></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#RCS">RCS Messaging</a></li>
+          <li><a href="#IVRS">IVRS Solutions</a></li>
+          <li><a href="#WhatsApp">WhatsApp</a></li>
+          <li><a href="#">Campaign Manager</a></li>
+          <li><a href="#">Analytics Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" style="display: none;">
+        <h5>Developers</h5>
+        <ul>
+          <li><a href="#">API Documentation</a></li>
+          <li><a href="#">SDKs &amp; Libraries</a></li>
+          <li><a href="#">Integration Guide</a></li>
+          <li><a href="#">Status Page</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 SetuNxt. All rights reserved.</p>
+      <div style="display:flex;gap:20px;">
+        <a href="#" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">Privacy Policy</a>
+        <a href="#" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">Terms of Service</a>
+        <a href="#" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════
+     SERVICE MODAL — full-page style
+════════════════════════════════════════════ -->
+  <div id="sn-modal-backdrop" role="dialog" aria-modal="true" aria-label="Service detail">
+    <div id="sn-modal-panel">
+
+      <button id="sn-modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+
+      <!-- ① HERO — injected by JS -->
+      <div id="snp-hero-section"></div>
+
+      <!-- ② FEATURES — injected by JS -->
+      <div id="snp-features-section"></div>
+
+      <!-- ③ HOW IT WORKS — injected by JS -->
+      <div id="snp-howto-section"></div>
+
+      <!-- ④ TRUST STRIP — injected by JS -->
+      <div id="snp-trust-section"></div>
+
+      <!-- ⑤ gradient divider -->
+      <div class="snp-divider"></div>
+
+      <!-- ⑥ CONTACT FORM -->
+      <div class="snp-contact-section">
+        <div class="snp-contact-header">
+          <h2>Get in Touch</h2>
+          <p>Fill in the form below and our team will respond within 24 hours.</p>
+        </div>
+        <form id="sn-form" novalidate autocomplete="off">
+          <div class="sn-row">
+            <div class="sn-fg">
+              <i class="fas fa-user sn-ico"></i>
+              <input type="text" id="sn-fname" placeholder="First Name" required>
+              <label for="sn-fname">First Name</label>
+            </div>
+            <div class="sn-fg">
+              <i class="fas fa-user sn-ico"></i>
+              <input type="text" id="sn-lname" placeholder="Last Name" required>
+              <label for="sn-lname">Last Name</label>
+            </div>
+          </div>
+          <div class="sn-fg">
+            <i class="fas fa-building sn-ico"></i>
+            <input type="text" id="sn-company" placeholder="Company Name">
+            <label for="sn-company">Company Name (optional)</label>
+          </div>
+          <div class="sn-row">
+            <div class="sn-fg">
+              <i class="fas fa-envelope sn-ico"></i>
+              <input type="email" id="sn-email" placeholder="Email Address" required>
+              <label for="sn-email">Email Address</label>
+            </div>
+            <div class="sn-fg">
+              <i class="fas fa-phone-alt sn-ico"></i>
+              <input type="tel" id="sn-phone" placeholder="Phone Number" required>
+              <label for="sn-phone">Phone Number</label>
+            </div>
+          </div>
+          <div class="sn-fg">
+            <i class="fas fa-tasks sn-ico"></i>
+            <select id="sn-service" required>
+              <option value="" disabled selected hidden></option>
+              <option value="RCS">RCS Business Messaging</option>
+              <option value="IVRS">IVRS Solutions</option>
+              <option value="WhatsApp">WhatsApp Business</option>
+            </select>
+            <label for="sn-service">Service Required</label>
+          </div>
+          <div class="sn-fg sn-ta">
+            <i class="fas fa-comment-dots sn-ico"></i>
+            <textarea id="sn-msg" placeholder="Your Message" rows="4" required></textarea>
+            <label for="sn-msg">Your Message</label>
+          </div>
+          <button type="submit" class="sn-submit">
+            <i class="fas fa-paper-plane"></i> Send Enquiry
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets/js/landing.js"></script>
+  <script src="assets/js/phone-realistic.js"></script>
+  <!-- Animation engine -->
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/animations-v2.js"></script>
+
+
+</body>
+
+</html>
