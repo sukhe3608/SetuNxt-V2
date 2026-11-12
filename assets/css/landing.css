@@ -1,4 +1,8 @@
 :root {
+  --hero-phone-scale: 1;
+}
+
+:root {
   --blue: #1a6fd4;
   --blue-dark: #1158b0;
   --blue-light: #2d88f0;
@@ -312,10 +316,14 @@ nav {
 /* Hero Illustration */
 .hero-visual {
   position: relative;
-  padding: 24px 36px 40px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: scale(var(--hero-phone-scale, 1));
+  transform-origin: center center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 /* ── Realistic Phone Frame ── */
@@ -2833,5 +2841,238 @@ footer {
   .sn-row {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+}
+
+
+/* ════════════════════════════════════════════
+   HERO FORM CARD  (above the fold)
+════════════════════════════════════════════ */
+.hero-form-card {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin-top: 32px;
+  max-width: 540px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+}
+
+.hero-form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.hero-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.hero-form-card input,
+.hero-form-card select {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.2s, background 0.2s;
+}
+
+.hero-form-card input::placeholder { color: rgba(255,255,255,0.55); }
+.hero-form-card input:focus,
+.hero-form-card select:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-form-card select {
+  margin-bottom: 12px;
+  appearance: none;
+  cursor: pointer;
+}
+.hero-form-card select option { color: var(--text-dark); background: #fff; }
+
+.hero-form-submit {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 4px 18px rgba(26, 111, 212, 0.45);
+}
+.hero-form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26, 111, 212, 0.55);
+}
+.hero-form-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.hero-form-alt-ctas {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.hero-alt-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.call-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.call-btn:hover { background: rgba(255,255,255,0.25); color:#fff; transform: translateY(-2px); }
+
+.whatsapp-btn {
+  background: #25D366;
+  color: #fff;
+  border: none;
+}
+.whatsapp-btn:hover { background: #1db954; color:#fff; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(37,211,102,0.45); }
+
+@media (max-width: 600px) {
+  .hero-form-row { grid-template-columns: 1fr; }
+  .hero-form-card { padding: 18px 16px; }
+  .hero-form-alt-ctas { flex-direction: column; }
+}
+
+/* SVG Button & Element Alignment */
+.hero-form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.whatsapp-btn .btn-svg {
+  fill: currentColor;
+}
+
+.prf-checks svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.prf-account-check svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 14px;
+  height: 14px;
+}
+
+.ad-dismiss svg {
+  display: block;
+  margin: auto;
+  stroke: currentColor;
+}
+
+
+/* ════════════════════════════════════════════
+   AUTO-SCALE HERO PHONE ON VARYING DISPLAY HEIGHTS / 100% SCALE
+════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  @media (max-height: 950px) {
+    :root { --hero-phone-scale: 0.94; }
+  }
+  @media (max-height: 860px) {
+    :root { --hero-phone-scale: 0.85; }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 16px; }
+    .hero-sub { font-size: 1.02rem; margin-bottom: 22px; }
+    .hero-badge { margin-bottom: 16px; }
+  }
+  @media (max-height: 780px) {
+    :root { --hero-phone-scale: 0.77; }
+    .hero { padding-top: 60px; }
+    .hero h1 { font-size: 2.45rem; margin-bottom: 14px; }
+    .hero-sub { font-size: 0.95rem; margin-bottom: 18px; line-height: 1.6; }
+    .hero-badge { margin-bottom: 12px; }
+    .btn-hero-primary, .btn-hero-secondary { padding: 12px 24px; font-size: 0.92rem; }
+  }
+  @media (max-height: 700px) {
+    :root { --hero-phone-scale: 0.69; }
+    .hero { padding-top: 55px; }
+    .hero h1 { font-size: 2.2rem; margin-bottom: 10px; }
+    .hero-sub { font-size: 0.88rem; margin-bottom: 15px; line-height: 1.5; }
+    .hero-badge { margin-bottom: 10px; padding: 4px 12px; font-size: 0.72rem; }
+    .btn-hero-primary, .btn-hero-secondary { padding: 10px 20px; font-size: 0.88rem; }
+  }
+  @media (max-height: 620px) {
+    :root { --hero-phone-scale: 0.60; }
+    .hero { padding-top: 50px; }
+    .hero h1 { font-size: 1.95rem; margin-bottom: 8px; }
+    .hero-sub { font-size: 0.84rem; margin-bottom: 12px; }
+  }
+}
+
+
+/* Compact hero form on shorter screens to preserve 1-screen fold */
+@media (max-height: 840px) and (min-width: 992px) {
+  .hero-form-card {
+    padding: 14px 18px;
+    margin-top: 14px;
+    border-radius: 14px;
+  }
+  .hero-form-label {
+    font-size: 0.74rem;
+    margin-bottom: 8px;
+  }
+  .hero-form-row {
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+  .hero-form-card input,
+  .hero-form-card select {
+    padding: 7px 10px;
+    font-size: 0.82rem;
+  }
+  .hero-form-card select {
+    margin-bottom: 8px;
+  }
+  .hero-form-submit {
+    padding: 8px 12px;
+    font-size: 0.88rem;
+  }
+  .hero-form-alt-ctas {
+    margin-top: 8px;
+    gap: 8px;
+  }
+  .hero-alt-btn {
+    padding: 6px 8px;
+    font-size: 0.8rem;
   }
 }

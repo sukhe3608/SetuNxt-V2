@@ -92,52 +92,10 @@
     sI.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch() });
 
     /* === LOAD MORE === */
-    const lmBtn = document.getElementById('loadMore');
-    const grid = document.getElementById('grid');
-    const extra = [
-        { cat: 'dev', tag: 'API & Dev', title: 'Webhooks & Real-Time Event Handling in RCS', desc: 'Set up webhooks for delivery receipts, read confirmations, and user interaction callbacks.', author: 'Dev Patel', init: 'DP', avCls: 'av-teal', date: 'Dec 22, 2024', img: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500&h=300&fit=crop' },
-        { cat: 'marketing', tag: 'Marketing', title: 'AI-Powered Personalization at Scale for RCS Campaigns', desc: 'Machine learning driven hyper-personalized RCS messaging campaigns that convert at 5x the rate.', author: 'Sneha Gupta', init: 'SG', avCls: 'av-orange', date: 'Dec 18, 2024', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop' },
-        { cat: 'rcs', tag: 'RCS', title: 'RCS for E-commerce: Interactive Shopping via Messages', desc: 'Transform your e-commerce journey with product carousels, in-message payments, and order tracking.', author: 'Arjun Nair', init: 'AN', avCls: 'av-blue', date: 'Dec 14, 2024', img: 'https://images.unsplash.com/photo-1556742393-d75f468bfcb0?w=500&h=300&fit=crop' },
-        { cat: 'strategy', tag: 'Strategy', title: 'Omnichannel Mastery: RCS in Your Full Messaging Stack', desc: 'Strategic guide to incorporating RCS alongside email, push, and social for unified engagement.', author: 'Kavita Rao', init: 'KR', avCls: 'av-indigo', date: 'Dec 10, 2024', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop' }
-    ];
-    let loaded = 0;
-    lmBtn.addEventListener('click', () => {
-        if (loaded >= extra.length) { toast(ICONS.books, "You've read all articles!"); return }
-        lmBtn.classList.add('loading'); lmBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Loading...';
-        setTimeout(() => {
-            const batch = extra.slice(loaded, loaded + 2);
-            batch.forEach((p, i) => {
-                const el = document.createElement('article');
-                el.className = 'card'; el.dataset.cat = p.cat;
-                el.style.animation = `fadeUp .6s ease ${i * .12}s both`;
-                el.innerHTML = `
-                    <div class="card-img">
-                        <img src="${p.img}" alt="${p.title}">
-                        <div class="img-overlay"></div>
-                        <span class="c-tag">${p.tag}</span>
-                        <button class="bm-btn" title="Bookmark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-                    </div>
-                    <div class="card-body">
-                        <h3>${p.title}</h3>
-                        <p class="c-desc">${p.desc}</p>
-                        <div class="card-foot">
-                            <div class="cf-author"><div class="av-xs ${p.avCls}">${p.init}</div><span class="av-n">${p.author}</span></div>
-                            <span class="cf-date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${p.date}</span>
-                        </div>
-                    </div>`;
-                grid.appendChild(el);
-            });
-            loaded += 2;
-            lmBtn.classList.remove('loading');
-            if (loaded >= extra.length) {
-                lmBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> All Articles Loaded';
-                lmBtn.classList.add('done');
-            } else {
-                lmBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Load More Articles';
-            }
-            toast(ICONS.sparkle, 'New articles loaded successfully!');
-        }, 650);
-    });
+    // Load More and the post grid are now driven by blog-live.js (fetches real pages
+    // from the blog engine's API and replaces this button's click handler). The
+    // hardcoded 4-post "extra" array that used to live here has been removed since
+    // it would otherwise run alongside — and fight with — the live version.
 
     /* === TAGS === */
     document.querySelectorAll('.tag-p').forEach(t => t.addEventListener('click', () => {
@@ -154,6 +112,13 @@
         // pattern like "Jan 15, 2025" or "Dec 28, 2024"
         const match = text.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4}/);
         return match ? match[0] : text.split(/\s*·\s*/)[0] || '';
+    }
+
+    // Escapes text before it's placed into the new tab's HTML in generateFullArticleHTML
+    // below. Titles and descriptions can now come from the blog engine's editor, so they
+    // can no longer be treated as trusted, hand-written strings the way they used to be.
+    function esc(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     }
 
     // generate full article HTML with consistent styling
@@ -240,17 +205,45 @@
 
     // Extract article data from a card element
     function getCardArticleData(card) {
-        const img = card.querySelector('.card-img img')?.src || 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=800&h=500&fit=crop';
-        const title = card.querySelector('h3')?.innerText || 'Article';
-        const description = card.querySelector('.c-desc')?.innerText || '';
-        const category = card.querySelector('.c-tag')?.innerText || 'Insights';
-        const authorName = card.querySelector('.av-n')?.innerText || 'SetuNxt Team';
+        const img = esc(card.querySelector('.card-img img')?.src || 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=800&h=500&fit=crop');
+        const title = esc(card.querySelector('h3')?.innerText || 'Article');
+        const description = esc(card.querySelector('.c-desc')?.innerText || '');
+        const category = esc(card.querySelector('.c-tag')?.innerText || 'Insights');
+        const authorName = esc(card.querySelector('.av-n')?.innerText || 'SetuNxt Team');
         const authorInitialElem = card.querySelector('.av-xs');
-        let authorInitial = authorInitialElem ? authorInitialElem.innerText.trim() : authorName.slice(0, 2).toUpperCase();
+        let authorInitial = esc(authorInitialElem ? authorInitialElem.innerText.trim() : authorName.slice(0, 2).toUpperCase());
         const dateElem = card.querySelector('.cf-date');
-        let date = dateElem ? dateElem.innerText.trim() : '';
-        // Build full body from description + generic deep dive
-        const fullBody = `<p>${description}</p><p>In this detailed guide, we explore the nuances of ${title}. RCS (Rich Communication Services) enables brands to send interactive messages with images, videos, carousels, and suggested actions — all within the native messaging app.</p><h2>Why ${category} Matters</h2><p>Businesses using RCS have reported up to 85% read rates and 40% higher click-through rates compared to traditional SMS. This article dives into real-world applications, best practices, and future trends that will define the messaging ecosystem.</p><h3>Implementation Steps</h3><ul><li>Partner with a certified RCS provider like SetuNxt</li><li>Design rich cards that align with your brand voice</li><li>Test interactive elements and track analytics</li><li>Optimize based on delivery, read, and conversion metrics</li></ul><p>Stay tuned for more expert insights from our team.</p>`;
+        let date = esc(dateElem ? dateElem.innerText.trim() : '');
+
+        // If blog-live.js stored authored content in dataset, use it (real content from CMS)
+        let fullBody = '';
+        const rawContent = card.dataset.content ? card.dataset.content.trim() : '';
+        if (rawContent) {
+            // Convert plain text / lightweight markdown to HTML paragraphs
+            fullBody = rawContent
+                .split(/\n{2,}/)
+                .map(para => {
+                    const trimmed = para.trim();
+                    if (!trimmed) return '';
+                    if (/^#{2,3}\s/.test(trimmed)) {
+                        const level = trimmed.startsWith('###') ? 3 : 2;
+                        return `<h${level}>${esc(trimmed.replace(/^#{2,3}\s+/, ''))}</h${level}>`;
+                    }
+                    if (/^[*-]\s/.test(trimmed)) {
+                        const items = trimmed.split('\n').filter(Boolean);
+                        const lis = items.map(li => `<li>${esc(li.replace(/^[*-]\s+/, '').trim())}</li>`).join('');
+                        return `<ul>${lis}</ul>`;
+                    }
+                    return `<p>${esc(trimmed)}</p>`;
+                })
+                .join('\n');
+        }
+
+        // Fallback for static/hardcoded cards that have no CMS content
+        if (!fullBody) {
+            fullBody = `<p>${description}</p><p>In this detailed guide, we explore the nuances of ${title}. RCS (Rich Communication Services) enables brands to send interactive messages with images, videos, carousels, and suggested actions — all within the native messaging app.</p><h2>Why ${category} Matters</h2><p>Businesses using RCS have reported up to 85% read rates and 40% higher click-through rates compared to traditional SMS. This article dives into real-world applications, best practices, and future trends that will define the messaging ecosystem.</p><h3>Implementation Steps</h3><ul><li>Partner with a certified RCS provider like SetuNxt</li><li>Design rich cards that align with your brand voice</li><li>Test interactive elements and track analytics</li><li>Optimize based on delivery, read, and conversion metrics</li></ul><p>Stay tuned for more expert insights from our team.</p>`;
+        }
+
         return { image: img, title, description, category, author: authorName, authorInitial, date, fullBody };
     }
 
@@ -258,30 +251,31 @@
     function getFeaturedArticleData() {
         const featEl = document.getElementById('featured');
         if (!featEl) return null;
-        const img = featEl.querySelector('.feat-img img')?.src || '';
-        const title = featEl.querySelector('.feat-body h2')?.innerText || 'Featured Article';
-        const description = featEl.querySelector('.excerpt')?.innerText || '';
+        const img = esc(featEl.querySelector('.feat-img img')?.src || '');
+        const title = esc(featEl.querySelector('.feat-body h2')?.innerText || 'Featured Article');
+        const description = esc(featEl.querySelector('.excerpt')?.innerText || '');
         let category = 'RCS';
         const catChip = featEl.querySelector('.cat-chip');
         if (catChip) category = catChip.innerText.replace(/[🔍📱]/g, '').trim();
-        const authorName = featEl.querySelector('.author-info .name')?.innerText || 'Arun Kumar';
-        const authorAvatar = featEl.querySelector('.avatar')?.innerText || 'AK';
+        category = esc(category);
+        const authorName = esc(featEl.querySelector('.author-info .name')?.innerText || 'Arun Kumar');
+        const authorAvatar = esc(featEl.querySelector('.avatar')?.innerText || 'AK');
         let date = '';
         const metaDiv = featEl.querySelector('.author-info .meta');
-        if (metaDiv) date = extractDateFromMeta(metaDiv);
+        if (metaDiv) date = esc(extractDateFromMeta(metaDiv));
         const fullBody = `<p>${description}</p><h2>Why RCS is the Future</h2><p>Rich Communication Services (RCS) is the next-generation messaging protocol that replaces SMS. It brings features like read receipts, typing indicators, high-res media sharing, and branded sending numbers — all without requiring additional apps. In 2025, RCS adoption has skyrocketed, with Google and Apple both supporting it natively.</p><h3>What This Means for Marketers</h3><p>With interactive carousels, quick reply buttons, and verified sender profiles, RCS offers a trusted channel for customer engagement. This guide provides actionable strategies to launch your first RCS campaign, measure success, and scale effectively.</p><h3>Conclusion</h3><p>SetuNxt simplifies RCS integration with powerful APIs and analytics. Get started today and transform your messaging ROI.</p>`;
         return { image: img, title, description, category, author: authorName, authorInitial: authorAvatar, date, fullBody };
     }
 
     // Trending item data
     function getTrendArticleData(trendEl) {
-        const title = trendEl.querySelector('h4')?.innerText || 'Trending Topic';
+        const title = esc(trendEl.querySelector('h4')?.innerText || 'Trending Topic');
         const metaSpan = trendEl.querySelector('.t-meta');
         let date = '';
         if (metaSpan) {
             const rawText = metaSpan.innerText;
             const match = rawText.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4}/);
-            date = match ? match[0] : '';
+            date = esc(match ? match[0] : '');
         }
         const category = 'Trending';
         const description = `Explore why "${title}" is gaining momentum in the RCS and business messaging world. This article breaks down key drivers and actionable insights.`;

@@ -460,3 +460,31 @@
     if (e.key === 'Enter') btn.click();
   });
 })();
+
+
+/* ══ DYNAMIC HERO AUTO-SCALER ══ */
+/* Ensures the phone mockup and hero section always fit 100% within the viewport at any scale or zoom */
+(function () {
+  function autoScaleHeroPhone() {
+    if (window.innerWidth >= 992) {
+      var navHeight = 70;
+      var safetyMargin = 50;
+      var availableHeight = window.innerHeight - navHeight - safetyMargin;
+      var naturalPhoneHeight = 740; // Full phone + chip bounds
+      var scale = availableHeight / naturalPhoneHeight;
+      // Clamp between 0.58 and 1.02 for optimal visual balance
+      var finalScale = Math.min(1.02, Math.max(0.58, scale));
+      document.documentElement.style.setProperty('--hero-phone-scale', finalScale.toFixed(3));
+    } else {
+      document.documentElement.style.removeProperty('--hero-phone-scale');
+    }
+  }
+
+  window.addEventListener('resize', autoScaleHeroPhone, { passive: true });
+  window.addEventListener('orientationchange', autoScaleHeroPhone);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoScaleHeroPhone);
+  } else {
+    autoScaleHeroPhone();
+  }
+})();
